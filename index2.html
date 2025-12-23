@@ -2,64 +2,61 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Checklist de Saída e Retorno</title>
+  <title>Checklist Caminhão</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      padding: 20px;
-    }
-    .box {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-    }
-    h2 {
-      text-align: center;
-    }
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 12px;
-      font-size: 16px;
-    }
-    .radio-group label {
-      display: block;
-      margin-top: 8px;
-      font-size: 16px;
-    }
-    button {
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      margin-top: 20px;
-    }
-  </style>
 </head>
 
 <body>
-  <div class="box">
-    <h2>Checklist do Caminhão</h2>
+  <h2>Checklist do Caminhão</h2>
 
-    <input placeholder="Nome do motorista">
-    <input placeholder="Frota / Placa">
+  <input id="motorista" placeholder="Nome do motorista"><br><br>
+  <input id="frota" placeholder="Frota / Placa"><br><br>
 
-    <strong>Tipo de registro:</strong>
+  <strong>Status:</strong><br>
+  <label>
+    <input type="radio" name="status" value="SAÍDA"> SAÍDA
+  </label><br>
+  <label>
+    <input type="radio" name="status" value="RETORNO"> RETORNO
+  </label><br><br>
 
-    <label>
-      <input type="radio" name="tipo"> SAÍDA
-    </label>
+  <input id="video" type="file" accept="video/*" capture="environment"><br><br>
 
-    <label>
-      <input type="radio" name="tipo"> RETORNO
-    </label>
+  <button onclick="enviar()">FINALIZAR CHECKLIST</button>
 
-    <input type="file" accept="video/*" capture="environment">
+  <script>
+    async function enviar() {
+      const motorista = document.getElementById("motorista").value;
+      const frota = document.getElementById("frota").value;
+      const status = document.querySelector('input[name="status"]:checked');
+      const videoFile = document.getElementById("video").files[0];
 
-    <button>FINALIZAR CHECKLIST</button>
-  </div>
+      if (!motorista || !frota || !status || !videoFile) {
+        alert("Preencha tudo antes de enviar.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        await fetch(
+          "https://script.google.com/macros/s/AKfycbxbddmgc9jniRWqnqc9kW5TFk84rxKRz86eZaALhO9MIDEJ4WLYXGtRr4_UJgiK-fx1gA/exec",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              motorista,
+              frota,
+              status: status.value,
+              video: reader.result
+            })
+          }
+        );
+
+        alert("Checklist enviado com sucesso!");
+        window.location.reload();
+      };
+
+      reader.readAsDataURL(videoFile);
+    }
+  </script>
 </body>
 </html>
