@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Checklist de Saída</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body style="font-family: Arial; padding:20px">
+  <h2>Checklist de Saída do Caminhão</h2>
+
+  <input id="motorista" placeholder="Nome do motorista"
+    style="width:100%;padding:10px;margin-bottom:10px">
+
+  <input id="frota" placeholder="Frota / Placa"
+    style="width:100%;padding:10px;margin-bottom:10px">
+
+  <input id="video" type="file" accept="video/*" capture="environment">
+
+  <br><br>
+  <button onclick="enviar()" style="padding:10px;width:100%">
+    FINALIZAR CHECKLIST
+  </button>
+
+  <p id="status"></p>
+
+  <script>
+    function enviar() {
+      const m = document.getElementById('motorista').value;
+      const f = document.getElementById('frota').value;
+      const v = document.getElementById('video').files[0];
+
+      if (!m || !f || !v) {
+        alert("Preencha tudo e grave o vídeo");
+        return;
+      }
+
+      document.getElementById('status').innerText =
+        "Checklist registrado com sucesso (teste).";
+    }
+  </script>
+</body>
+</html>
