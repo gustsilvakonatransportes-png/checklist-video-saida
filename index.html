@@ -2,54 +2,96 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Checklist de Saída / Retorno</title>
+  <title>Checklist de Saída e Retorno</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .radio-group {
+      margin-top: 15px;
+    }
+    .radio-group label {
+      display: block;
+      margin-top: 8px;
+      font-size: 16px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+    button:active {
+      opacity: 0.8;
+    }
+  </style>
 </head>
 
-<body style="font-family: Arial; padding:20px">
-  <h2>Checklist de Caminhão</h2>
+<body>
 
-  <input id="motorista" placeholder="Nome do motorista"
-    style="width:100%;padding:10px;margin-bottom:10px">
+  <div class="box">
+    <h2>Checklist do Caminhão</h2>
 
-  <input id="frota" placeholder="Frota / Placa"
-    style="width:100%;padding:10px;margin-bottom:15px">
+    <input id="motorista" type="text" placeholder="Nome do motorista">
 
-  <strong>Tipo de registro:</strong><br>
-  <label>
-    <input type="radio" name="tipo" value="saida"> SAÍDA
-  </label><br>
-  <label>
-    <input type="radio" name="tipo" value="retorno"> RETORNO
-  </label>
+    <input id="frota" type="text" placeholder="Frota / Placa">
 
-  <br><br>
+    <div class="radio-group">
+      <strong>Tipo de registro:</strong>
 
-  <input id="video" type="file" accept="video/*" capture="environment">
+      <label>
+        <input type="radio" name="tipo" value="saida">
+        SAÍDA
+      </label>
 
-  <br><br>
+      <label>
+        <input type="radio" name="tipo" value="retorno">
+        RETORNO
+      </label>
+    </div>
 
-  <button onclick="enviar()" style="padding:12px;width:100%">
-    FINALIZAR
-  </button>
+    <input id="video" type="file" accept="video/*" capture="environment">
 
-  <p id="status"></p>
+    <button onclick="enviar()">FINALIZAR</button>
+
+    <p id="status"></p>
+  </div>
 
   <script>
     function enviar() {
-      const motorista = document.getElementById('motorista').value;
-      const frota = document.getElementById('frota').value;
-      const video = document.getElementById('video').files[0];
+      const motorista = document.getElementById("motorista").value.trim();
+      const frota = document.getElementById("frota").value.trim();
+      const video = document.getElementById("video").files[0];
       const tipo = document.querySelector('input[name="tipo"]:checked');
 
       if (!motorista || !frota || !video || !tipo) {
-        alert("Preencha tudo, selecione SAÍDA ou RETORNO e grave o vídeo");
+        alert("Preencha tudo, escolha SAÍDA ou RETORNO e grave o vídeo.");
         return;
       }
 
-      document.getElementById('status').innerText =
-        "Checklist registrado com sucesso (teste).";
+      document.getElementById("status").innerText =
+        "Checklist registrado com sucesso (teste local).";
     }
   </script>
+
 </body>
 </html>
