@@ -2,36 +2,48 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Checklist de Saída</title>
+  <title>Checklist de Saída / Retorno</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body style="font-family: Arial; padding:20px">
-  <h2>Checklist de Saída do Caminhão</h2>
+  <h2>Checklist de Caminhão</h2>
 
   <input id="motorista" placeholder="Nome do motorista"
     style="width:100%;padding:10px;margin-bottom:10px">
 
   <input id="frota" placeholder="Frota / Placa"
-    style="width:100%;padding:10px;margin-bottom:10px">
+    style="width:100%;padding:10px;margin-bottom:15px">
+
+  <strong>Tipo de registro:</strong><br>
+  <label>
+    <input type="radio" name="tipo" value="saida"> SAÍDA
+  </label><br>
+  <label>
+    <input type="radio" name="tipo" value="retorno"> RETORNO
+  </label>
+
+  <br><br>
 
   <input id="video" type="file" accept="video/*" capture="environment">
 
   <br><br>
-  <button onclick="enviar()" style="padding:10px;width:100%">
-    FINALIZAR CHECKLIST
+
+  <button onclick="enviar()" style="padding:12px;width:100%">
+    FINALIZAR
   </button>
 
   <p id="status"></p>
 
   <script>
     function enviar() {
-      const m = document.getElementById('motorista').value;
-      const f = document.getElementById('frota').value;
-      const v = document.getElementById('video').files[0];
+      const motorista = document.getElementById('motorista').value;
+      const frota = document.getElementById('frota').value;
+      const video = document.getElementById('video').files[0];
+      const tipo = document.querySelector('input[name="tipo"]:checked');
 
-      if (!m || !f || !v) {
-        alert("Preencha tudo e grave o vídeo");
+      if (!motorista || !frota || !video || !tipo) {
+        alert("Preencha tudo, selecione SAÍDA ou RETORNO e grave o vídeo");
         return;
       }
 
