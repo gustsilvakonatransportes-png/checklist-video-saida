@@ -11,19 +11,19 @@
       background: #f2f2f2;
       padding: 20px;
     }
+    .box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
     h2 {
       text-align: center;
     }
     input, button {
       width: 100%;
       padding: 12px;
-      margin-top: 10px;
+      margin-top: 12px;
       font-size: 16px;
-    }
-    .box {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
     }
     .radio-group {
       margin-top: 15px;
@@ -35,13 +35,10 @@
     }
     button {
       background: #007bff;
-      color: white;
+      color: #fff;
       border: none;
       border-radius: 6px;
       margin-top: 20px;
-    }
-    button:active {
-      opacity: 0.8;
     }
   </style>
 </head>
@@ -51,9 +48,9 @@
   <div class="box">
     <h2>Checklist do Caminhão</h2>
 
-    <input id="motorista" type="text" placeholder="Nome do motorista">
+    <input id="motorista" placeholder="Nome do motorista">
 
-    <input id="frota" type="text" placeholder="Frota / Placa">
+    <input id="frota" placeholder="Frota / Placa">
 
     <div class="radio-group">
       <strong>Tipo de registro:</strong>
@@ -78,8 +75,8 @@
 
   <script>
     function enviar() {
-      const motorista = document.getElementById("motorista").value.trim();
-      const frota = document.getElementById("frota").value.trim();
+      const motorista = document.getElementById("motorista").value;
+      const frota = document.getElementById("frota").value;
       const video = document.getElementById("video").files[0];
       const tipo = document.querySelector('input[name="tipo"]:checked');
 
@@ -89,7 +86,7 @@
       }
 
       document.getElementById("status").innerText =
-        "Checklist registrado com sucesso (teste local).";
+        "Checklist registrado com sucesso (teste).";
     }
   </script>
 
